@@ -1,0 +1,12 @@
+package com.example.rss01;
+
+import java.util.List;
+
+public class Weather {
+
+	String CityName;
+	String country;
+	int cnt;
+	List<WeatherDetails> WeatherDetails;
+
+}

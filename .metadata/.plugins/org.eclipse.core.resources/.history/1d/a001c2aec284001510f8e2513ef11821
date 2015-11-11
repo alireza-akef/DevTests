@@ -1,0 +1,18 @@
+package com.example.rss01;
+
+import java.io.Serializable;
+
+public class WeatherDetails implements Serializable {
+	 Integer DayTemp;
+	 Long MinTemp ;
+	 Long MaxTemp;
+	 Long NightTemp;
+	 Long EveTemp;
+	 float MornTemp;
+	 float Pressure;
+	 int Humidity;
+	 String MainWeather;
+	 String DescriptionWeather;
+	 int Cloudiness;
+
+}

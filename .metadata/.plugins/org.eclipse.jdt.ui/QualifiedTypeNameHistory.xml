@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.squareup.okhttp.Request"/>
+<fullyQualifiedTypeName name="com.squareup.okhttp.Response"/>
+<fullyQualifiedTypeName name="com.squareup.okhttp.Call"/>
+<fullyQualifiedTypeName name="com.squareup.okhttp.OkHttpClient"/>
+<fullyQualifiedTypeName name="com.squareup.okhttp.Request.Builder"/>
+<fullyQualifiedTypeName name="android.os.AsyncTask"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="com.example.rss01.R.id"/>
+<fullyQualifiedTypeName name="com.example.rss01.MainActivity.HttpDataGetter"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="java.lang.Long"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="android.widget.BaseAdapter"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.example.rss01.Weather"/>
+<fullyQualifiedTypeName name="com.example.rss01.WeatherDetails"/>
+<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+</qualifiedTypeNameHistroy>

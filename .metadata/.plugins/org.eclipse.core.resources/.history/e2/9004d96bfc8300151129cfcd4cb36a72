@@ -1,0 +1,26 @@
+package com.example.rss01;
+
+public class Weather {
+
+
+	// CityName
+
+	String country;
+	int cnt;
+	 list":[{
+	// "dt":1406080800,
+	// "temp":{
+	// "DayTemp":297.77,
+	int MinTemp ;
+	 int MaxTemp;
+	 int NightTemp;
+	 int EveTemp;
+	 int MornTemp;
+	 int Pressure;
+	 int Humidity;
+	 
+	
+	// "weather":[{"id":803,"main":"Clouds","description":"broken
+	// clouds","icon":"04d"}],}
+	// ]}
+}
