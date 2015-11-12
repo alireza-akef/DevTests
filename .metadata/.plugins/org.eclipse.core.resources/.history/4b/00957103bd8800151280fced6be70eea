@@ -1,0 +1,116 @@
+package com.example.rss01;
+
+import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
+
+import org.json.JSONObject;
+
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.provider.SyncStateContract.Helpers;
+import android.util.Log;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		TextView tv = (TextView) findViewById(R.id.textView1);
+		tv.setText("hiiii");
+
+		HttpDataGetter hd = new HttpDataGetter();
+		hd.execute(null, null);
+
+		// API key: 448ba0f36b0f893a347572821031ef8a
+	}
+
+	private class HttpDataGetter extends AsyncTask<String, String, Weather> {
+		@Override
+		protected Weather doInBackground(String... params) {
+
+			Weather w = new Weather();
+			try {
+				w.country = "aaa";
+				w.cnt = 14;
+				w.CityName = "Tehran";
+				if (w.CityLat == 0L) {
+					w.location = String.format("q=%s", w.CityName);
+				} else {
+					w.location = String.format("lat=%d&lon=%d", w.CityLat, w.CityLon);
+				}
+
+				String urlString = String.format(
+						"http://api.openweathermap.org/data/2.5/forecast/daily?%s&cnt=%d&mode=json&units=metric&appid=448ba0f36b0f893a347572821031ef8a",
+						w.location, w.cnt);
+				String responseString = new OkHttpClient().newCall(new Request.Builder().url(urlString).build())
+						.execute().body().string();
+				JSONObject jsonResult = new JSONObject(responseString);
+				w.CityName = jsonResult.getJSONObject("city").getString("name").toString();
+				w.country = jsonResult.getJSONObject("city").getString("country").toString();
+
+				// i++) {
+				// String aa = jsonResult.getString("country");
+				// w.country =aa;
+				int j = 6;
+
+				WeatherDetails wd;
+				for (int i = 0; i < jsonResult.getJSONArray("list").length(); i++) {
+					wd = new WeatherDetails();
+
+					wd.DayTemp = jsonResult.getJSONArray("list").getJSONObject(i).getJSONObject("temp").getLong("day");
+					wd.MinTemp = jsonResult.getJSONArray("list").getJSONObject(i).getJSONObject("temp").getLong("min");
+					wd.MaxTemp = jsonResult.getJSONArray("list").getJSONObject(i).getJSONObject("temp").getLong("max");
+					wd.NightTemp = jsonResult.getJSONArray("list").getJSONObject(i).getJSONObject("temp")
+							.getLong("night");
+					wd.EveTemp = jsonResult.getJSONArray("list").getJSONObject(i).getJSONObject("temp").getLong("eve");
+					wd.MornTemp = jsonResult.getJSONArray("list").getJSONObject(i).getJSONObject("temp")
+							.getLong("morn");
+					wd.Pressure = jsonResult.getJSONArray("list").getJSONObject(i).getLong("pressure");
+					wd.Humidity = jsonResult.getJSONArray("list").getJSONObject(i).getLong("humidity");
+					wd.Cloudiness = jsonResult.getJSONArray("list").getJSONObject(i).getLong("clouds");
+					wd.MainWeather = jsonResult.getJSONArray("list").getJSONObject(i).getJSONArray("weather")
+							.getJSONObject(0).getString("main").toString();
+					wd.DescriptionWeather = jsonResult.getJSONArray("list").getJSONObject(i).getJSONArray("weather")
+							.getJSONObject(0).getString("description").toString();
+					w.WeatherDetails.add(i, wd);
+					DatabaseClass helper = new DatabaseClass(getBaseContext());
+					SQLiteDatabase database = helper.getWritableDatabase();
+//					String sqlcmd = String.format("INSERT or REPLACE INTO Weather (DATE, CITY,WEATHER_DESCRIPTION) VALUES (%s,%s,%s)", "15/11/12",w.CityName,wd.DescriptionWeather);
+//					database.execSQL(sqlcmd);
+
+				}
+			} catch (
+
+			Exception e)
+
+			{
+				e.printStackTrace();
+				Log.e("error", e.getMessage());
+			}
+			return w;
+
+		}
+
+		@Override
+		protected void onPostExecute(Weather result) {
+			Log.v("12133131", String.valueOf(result.CityName));
+			Log.v("12133131", String.valueOf(result.country));
+			for (int k = 0; k < 10; k++) {
+				Log.v("12121121", (result.WeatherDetails.get(k)).toString());
+
+			}
+
+		}
+
+	}
+}

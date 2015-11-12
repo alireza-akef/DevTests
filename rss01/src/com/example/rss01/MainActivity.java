@@ -1,6 +1,8 @@
 package com.example.rss01;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -11,8 +13,10 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.SyncStateContract.Helpers;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -37,6 +41,8 @@ public class MainActivity extends Activity {
 
 			Weather w = new Weather();
 			try {
+				DatabaseClass helper = new DatabaseClass(getBaseContext());
+				SQLiteDatabase database = helper.getWritableDatabase();
 				w.country = "aaa";
 				w.cnt = 14;
 				w.CityName = "Tehran";
@@ -80,6 +86,10 @@ public class MainActivity extends Activity {
 					wd.DescriptionWeather = jsonResult.getJSONArray("list").getJSONObject(i).getJSONArray("weather")
 							.getJSONObject(0).getString("description").toString();
 					w.WeatherDetails.add(i, wd);
+					Calendar c = Calendar.getInstance();
+					 String sqlcmd = String.format("INSERT or REPLACE INTO Weather (DATE,CITY,WEATHER_DESCRIPTION) VALUES ('%s','%s','%s')",c.getTime().toString(), w.CityName, wd.DescriptionWeather);
+					 database.execSQL(sqlcmd);
+					 
 
 				}
 			} catch (

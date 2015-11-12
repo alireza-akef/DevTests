@@ -40,6 +40,8 @@ public class MyAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater)context.getSystemService
-			      (Context.LAYOUT_INFLATER_SERVICE);	}
+//		LayoutInflater inflater = (LayoutInflater)findview
+//			      (Context.LAYOUT_INFLATER_SERVICE);	}
+		return null;
+	}
 }

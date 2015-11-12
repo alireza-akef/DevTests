@@ -19,5 +19,11 @@
 <fullyQualifiedTypeName name="com.example.rss01.Weather"/>
 <fullyQualifiedTypeName name="com.example.rss01.WeatherDetails"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
+<fullyQualifiedTypeName name="android.provider.SyncStateContract.Helpers"/>
+<fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
+<fullyQualifiedTypeName name="com.example.rss01.DatabaseClass"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
 </qualifiedTypeNameHistroy>
