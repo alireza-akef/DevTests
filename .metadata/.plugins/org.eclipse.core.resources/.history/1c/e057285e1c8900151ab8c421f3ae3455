@@ -85,7 +85,7 @@ public class MainActivity extends Activity {
 							.getJSONObject(0).getString("main").toString();
 					wd.DescriptionWeather = jsonResult.getJSONArray("list").getJSONObject(i).getJSONArray("weather")
 							.getJSONObject(0).getString("description").toString();
-					w.WeatherDetails.add(i, wd) ;
+					w.WeatherDetails.add(i, wd);
 					Calendar c = Calendar.getInstance();
 					 String sqlcmd = String.format("INSERT or REPLACE INTO Weather (DATE,CITY,WEATHER_DESCRIPTION) VALUES ('%s','%s','%s')",c.getTime().toString(), w.CityName, wd.DescriptionWeather);
 					 database.execSQL(sqlcmd);
