@@ -2,6 +2,7 @@ package com.example.rss01;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -12,12 +13,17 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import android.R.string;
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.SyncStateContract.Helpers;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -85,16 +91,16 @@ public class MainActivity extends Activity {
 							.getJSONObject(0).getString("main").toString();
 					wd.DescriptionWeather = jsonResult.getJSONArray("list").getJSONObject(i).getJSONArray("weather")
 							.getJSONObject(0).getString("description").toString();
-					w.WeatherDetails.add(i, wd);//fdddddd
+					w.WeatherDetails.add(i, wd);
 					Calendar c = Calendar.getInstance();
-					 String sqlcmd = String.format("INSERT or REPLACE INTO Weather (DATE,CITY,WEATHER_DESCRIPTION) VALUES ('%s','%s','%s')",c.getTime().toString(), w.CityName, wd.DescriptionWeather);
-					 database.execSQL(sqlcmd);
-					 
+					String sqlcmd = String.format(
+							"INSERT or REPLACE INTO Weather (DATE,CITY,WEATHER_DESCRIPTION) VALUES ('%s','%s','%s')",
+							c.getTime().toString(), w.CityName, wd.DescriptionWeather);
+					database.execSQL(sqlcmd);
 
 				}
-			} catch (
 
-			Exception e)
+			} catch (Exception e)
 
 			{
 				e.printStackTrace();
@@ -106,14 +112,32 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Weather result) {
-			Log.v("12133131", String.valueOf(result.CityName));
-			Log.v("12133131", String.valueOf(result.country));
-			for (int k = 0; k < 10; k++) {
-				Log.v("12121121", (result.WeatherDetails.get(k)).toString());
+			ArrayList<String> rows = new ArrayList<String>();
+			DatabaseClass helper = new DatabaseClass(getBaseContext());
+
+			SQLiteDatabase database = helper.getReadableDatabase();
+			Cursor cursor = database.rawQuery("SELECT * FROM Weather", null);
+			if (cursor.moveToFirst()) {
+				for (int k = 0; cursor.moveToNext(); k++) {
+					rows.add(k, String.format("%s - %s - %s", cursor.getString(0), cursor.getString(1),
+							cursor.getString(2)));
+				}
+				ArrayAdapter<String> array = new ArrayAdapter<String>(getBaseContext(),
+						android.R.layout.simple_list_item_1, rows);
+				ListView lv01 = (ListView) findViewById(R.id.lv01);
+				lv01.setAdapter(array);
+				Log.v("12133131", String.valueOf(result.CityName));
+				Log.v("12133131", String.valueOf(result.country));
+				for (int k = 0; k < 10; k++) {
+					Log.v("12121121", (result.WeatherDetails.get(k)).toString());
+
+				}
+				Intent intent = new Intent(getBaseContext(), ListActivity.class);
+				intent.putExtra("weather", result);
+				startActivity(intent);
 
 			}
 
 		}
-
 	}
 }

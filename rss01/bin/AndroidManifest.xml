@@ -7,7 +7,6 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
-    <uses-permission android:name="android.permission.INTERNET" android:maxSdkVersion="24"/>
 
     <application
         android:allowBackup="true"
@@ -22,6 +21,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ListActivity"
+            android:label="@string/title_activity_list" >
         </activity>
     </application>
 

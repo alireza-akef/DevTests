@@ -29,4 +29,13 @@
         android:text="Enter City name :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ListView
+        android:id="@+id/lv01"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="19dp" >
+    </ListView>
+
 </RelativeLayout>
